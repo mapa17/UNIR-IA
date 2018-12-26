@@ -1,0 +1,44 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\expandafter\ifx\csname href\endcsname\relax
+  \def\href#1#2{#2} \def\path#1{#1}\fi
+
+\bibitem{Evans2009}
+J.~A. Evans, J.~Reimer,
+  \href{http://science.sciencemag.org/content/323/5917/1025}{Open access and
+  global participation in science}\href
+  {http://dx.doi.org/10.1126/science.1154562}
+  {\path{doi:10.1126/science.1154562}}.
+\newline\urlprefix\url{http://science.sciencemag.org/content/323/5917/1025}
+
+\bibitem{Hughes2007}
+J.~R. Hughes, {A Review of the Savant Syndrome and its Possible Relationship to
+  Epilepsy}, Tech. Rep.~4 (2007).
+
+\bibitem{Putnam1994}
+H.~Putnam,
+  \href{https://academic.oup.com/pq/article-lookup/doi/10.2307/2219742}{{Brains
+  in a Vat: Different Perspectives}}, The Philosophical Quarterly 44~(175)
+  (1994) 213.
+\newblock \href {http://arxiv.org/abs/arXiv:1011.1669v3}
+  {\path{arXiv:arXiv:1011.1669v3}}, \href {http://dx.doi.org/10.2307/2219742}
+  {\path{doi:10.2307/2219742}}.
+\newline\urlprefix\url{https://academic.oup.com/pq/article-lookup/doi/10.2307/2219742}
+
+\bibitem{Bringsjord2007}
+S.~Bringsjord, {Offer: One Billion Dollars for a Conscious Robot; If You're
+  Honest, You Must Decline}, Journal of Consciousness Studies 14~(7) (2007)
+  28--43.
+
+\bibitem{Nagel1974}
+T.~Nagel,
+  \href{http://www.jstor.org/stable/2183914{\%}5Cnhttp://www.jstor.org/stable/2183914?seq=1{\&}cid=pdf-reference{\#}references{\_}tab{\_}contents{\%}5Cnhttp://www.jstor.org/page/info/about/policies/terms.jsp}{{What
+  Is It Like to Be A Bat?}}, The Philosophical Review 83~(4) (1974) 435--450.
+\newblock \href {http://arxiv.org/abs/arXiv:1011.1669v3}
+  {\path{arXiv:arXiv:1011.1669v3}}, \href {http://dx.doi.org/10.2307/2183914}
+  {\path{doi:10.2307/2183914}}.
+\newline\urlprefix\url{http://www.jstor.org/stable/2183914{\%}5Cnhttp://www.jstor.org/stable/2183914?seq=1{\&}cid=pdf-reference{\#}references{\_}tab{\_}contents{\%}5Cnhttp://www.jstor.org/page/info/about/policies/terms.jsp}
+
+\end{thebibliography}
