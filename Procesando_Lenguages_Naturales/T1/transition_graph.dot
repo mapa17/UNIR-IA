@@ -1,0 +1,23 @@
+digraph "" {
+	Fp -> "<E>"	 [label=1.00];
+	AQ0CS0 -> NCMS000	 [label=0.18];
+	AQ0CS0 -> SPS00	 [label=0.18];
+	NCMS000 -> Fp	 [label=0.05];
+	NCMS000 -> AQ0CS0	 [label=0.11];
+	NCMS000 -> DA0MS0	 [label=0.03];
+	NCMS000 -> SPS00	 [label=0.38];
+	DA0MS0 -> AQ0CS0	 [label=0.04];
+	DA0MS0 -> NCMS000	 [label=0.60];
+	DA0MS0 -> SPS00	 [label=0.04];
+	SPS00 -> NCMS000	 [label=0.04];
+	SPS00 -> DA0MS0	 [label=0.24];
+	SPS00 -> NCMP000	 [label=0.04];
+	NCMP000 -> Fp	 [label=0.12];
+	NCMP000 -> SPS00	 [label=0.12];
+	VMIP3S0 -> NCMS000	 [label=0.04];
+	VMIP3S0 -> DA0MS0	 [label=0.04];
+	VMIP3S0 -> SPS00	 [label=0.26];
+	VMIP3S0 -> VMIP3S0	 [label=0.04];
+	"<S>" -> SPS00	 [label=0.40];
+	"<S>" -> VMIP3S0	 [label=0.07];
+}

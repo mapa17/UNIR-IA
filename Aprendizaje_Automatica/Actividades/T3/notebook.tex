@@ -1,0 +1,593 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Manuel\_Pasieka-Wisconsin\_Breast\_Cancer}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{introducciuxf3n}{%
+\section{Introducción}\label{introducciuxf3n}}
+
+El enfoque de esta práctica crear un clasificador para el dataset
+`Wisconsis Breast Canceer' Dataset utilizando un `isolation forest'.
+
+Los datos están disponibles en:
+https://www.kaggle.com/uciml/breast-cancer-wisconsin-data
+
+\hypertarget{resultados}{%
+\section{Resultados}\label{resultados}}
+
+El mejor clasificador consigue una f1 score de 0.68 par los casos
+benévolos y 0.81 para os casos malignas.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{sklearn}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{IsolationForest}
+\end{Verbatim}
+
+
+    \hypertarget{anuxe1lisis-descriptivo}{%
+\section{Análisis descriptivo}\label{anuxe1lisis-descriptivo}}
+
+El dataset contiene 569 ejemplos de pruebas histológicas con 357
+ejemplos benévolo y 212 ejemplos malignas.
+
+Hay 30 características numéricas, sin valores missing.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{T} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data/data.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{T}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}          id diagnosis  radius\_mean  texture\_mean  perimeter\_mean  area\_mean  smoothness\_mean  compactness\_mean  concavity\_mean  concave points\_mean  symmetry\_mean  fractal\_dimension\_mean  radius\_se  texture\_se  perimeter\_se  area\_se  smoothness\_se  compactness\_se  concavity\_se  concave points\_se  symmetry\_se  fractal\_dimension\_se  radius\_worst  texture\_worst  perimeter\_worst  area\_worst  \textbackslash{}
+        0    842302         M        17.99         10.38          122.80     1001.0          0.11840           0.27760          0.3001              0.14710         0.2419                 0.07871     1.0950      0.9053         8.589   153.40       0.006399         0.04904       0.05373            0.01587      0.03003              0.006193         25.38          17.33           184.60      2019.0   
+        1    842517         M        20.57         17.77          132.90     1326.0          0.08474           0.07864          0.0869              0.07017         0.1812                 0.05667     0.5435      0.7339         3.398    74.08       0.005225         0.01308       0.01860            0.01340      0.01389              0.003532         24.99          23.41           158.80      1956.0   
+        2  84300903         M        19.69         21.25          130.00     1203.0          0.10960           0.15990          0.1974              0.12790         0.2069                 0.05999     0.7456      0.7869         4.585    94.03       0.006150         0.04006       0.03832            0.02058      0.02250              0.004571         23.57          25.53           152.50      1709.0   
+        3  84348301         M        11.42         20.38           77.58      386.1          0.14250           0.28390          0.2414              0.10520         0.2597                 0.09744     0.4956      1.1560         3.445    27.23       0.009110         0.07458       0.05661            0.01867      0.05963              0.009208         14.91          26.50            98.87       567.7   
+        4  84358402         M        20.29         14.34          135.10     1297.0          0.10030           0.13280          0.1980              0.10430         0.1809                 0.05883     0.7572      0.7813         5.438    94.44       0.011490         0.02461       0.05688            0.01885      0.01756              0.005115         22.54          16.67           152.20      1575.0   
+        
+           smoothness\_worst  compactness\_worst  concavity\_worst  concave points\_worst  symmetry\_worst  fractal\_dimension\_worst  
+        0            0.1622             0.6656           0.7119                0.2654          0.4601                  0.11890  
+        1            0.1238             0.1866           0.2416                0.1860          0.2750                  0.08902  
+        2            0.1444             0.4245           0.4504                0.2430          0.3613                  0.08758  
+        3            0.2098             0.8663           0.6869                0.2575          0.6638                  0.17300  
+        4            0.1374             0.2050           0.4000                0.1625          0.2364                  0.07678  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{T}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}                          count          mean           std          min            25\%            50\%           75\%           max
+        id                       569.0  3.037183e+07  1.250206e+08  8670.000000  869218.000000  906024.000000  8.813129e+06  9.113205e+08
+        radius\_mean              569.0  1.412729e+01  3.524049e+00     6.981000      11.700000      13.370000  1.578000e+01  2.811000e+01
+        texture\_mean             569.0  1.928965e+01  4.301036e+00     9.710000      16.170000      18.840000  2.180000e+01  3.928000e+01
+        perimeter\_mean           569.0  9.196903e+01  2.429898e+01    43.790000      75.170000      86.240000  1.041000e+02  1.885000e+02
+        area\_mean                569.0  6.548891e+02  3.519141e+02   143.500000     420.300000     551.100000  7.827000e+02  2.501000e+03
+        smoothness\_mean          569.0  9.636028e-02  1.406413e-02     0.052630       0.086370       0.095870  1.053000e-01  1.634000e-01
+        compactness\_mean         569.0  1.043410e-01  5.281276e-02     0.019380       0.064920       0.092630  1.304000e-01  3.454000e-01
+        concavity\_mean           569.0  8.879932e-02  7.971981e-02     0.000000       0.029560       0.061540  1.307000e-01  4.268000e-01
+        concave points\_mean      569.0  4.891915e-02  3.880284e-02     0.000000       0.020310       0.033500  7.400000e-02  2.012000e-01
+        symmetry\_mean            569.0  1.811619e-01  2.741428e-02     0.106000       0.161900       0.179200  1.957000e-01  3.040000e-01
+        fractal\_dimension\_mean   569.0  6.279761e-02  7.060363e-03     0.049960       0.057700       0.061540  6.612000e-02  9.744000e-02
+        radius\_se                569.0  4.051721e-01  2.773127e-01     0.111500       0.232400       0.324200  4.789000e-01  2.873000e+00
+        texture\_se               569.0  1.216853e+00  5.516484e-01     0.360200       0.833900       1.108000  1.474000e+00  4.885000e+00
+        perimeter\_se             569.0  2.866059e+00  2.021855e+00     0.757000       1.606000       2.287000  3.357000e+00  2.198000e+01
+        area\_se                  569.0  4.033708e+01  4.549101e+01     6.802000      17.850000      24.530000  4.519000e+01  5.422000e+02
+        smoothness\_se            569.0  7.040979e-03  3.002518e-03     0.001713       0.005169       0.006380  8.146000e-03  3.113000e-02
+        compactness\_se           569.0  2.547814e-02  1.790818e-02     0.002252       0.013080       0.020450  3.245000e-02  1.354000e-01
+        concavity\_se             569.0  3.189372e-02  3.018606e-02     0.000000       0.015090       0.025890  4.205000e-02  3.960000e-01
+        concave points\_se        569.0  1.179614e-02  6.170285e-03     0.000000       0.007638       0.010930  1.471000e-02  5.279000e-02
+        symmetry\_se              569.0  2.054230e-02  8.266372e-03     0.007882       0.015160       0.018730  2.348000e-02  7.895000e-02
+        fractal\_dimension\_se     569.0  3.794904e-03  2.646071e-03     0.000895       0.002248       0.003187  4.558000e-03  2.984000e-02
+        radius\_worst             569.0  1.626919e+01  4.833242e+00     7.930000      13.010000      14.970000  1.879000e+01  3.604000e+01
+        texture\_worst            569.0  2.567722e+01  6.146258e+00    12.020000      21.080000      25.410000  2.972000e+01  4.954000e+01
+        perimeter\_worst          569.0  1.072612e+02  3.360254e+01    50.410000      84.110000      97.660000  1.254000e+02  2.512000e+02
+        area\_worst               569.0  8.805831e+02  5.693570e+02   185.200000     515.300000     686.500000  1.084000e+03  4.254000e+03
+        smoothness\_worst         569.0  1.323686e-01  2.283243e-02     0.071170       0.116600       0.131300  1.460000e-01  2.226000e-01
+        compactness\_worst        569.0  2.542650e-01  1.573365e-01     0.027290       0.147200       0.211900  3.391000e-01  1.058000e+00
+        concavity\_worst          569.0  2.721885e-01  2.086243e-01     0.000000       0.114500       0.226700  3.829000e-01  1.252000e+00
+        concave points\_worst     569.0  1.146062e-01  6.573234e-02     0.000000       0.064930       0.099930  1.614000e-01  2.910000e-01
+        symmetry\_worst           569.0  2.900756e-01  6.186747e-02     0.156500       0.250400       0.282200  3.179000e-01  6.638000e-01
+        fractal\_dimension\_worst  569.0  8.394582e-02  1.806127e-02     0.055040       0.071460       0.080040  9.208000e-02  2.075000e-01
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} How balanced are the target clases}
+        \PY{n}{T}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:} B    357
+        M    212
+        Name: diagnosis, dtype: int64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Are there any missing datapoints?}
+        \PY{n}{T}\PY{o}{.}\PY{n}{isna}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:} id                         0
+        diagnosis                  0
+        radius\_mean                0
+        texture\_mean               0
+        perimeter\_mean             0
+        area\_mean                  0
+        smoothness\_mean            0
+        compactness\_mean           0
+        concavity\_mean             0
+        concave points\_mean        0
+        symmetry\_mean              0
+        fractal\_dimension\_mean     0
+        radius\_se                  0
+        texture\_se                 0
+        perimeter\_se               0
+        area\_se                    0
+        smoothness\_se              0
+        compactness\_se             0
+        concavity\_se               0
+        concave points\_se          0
+        symmetry\_se                0
+        fractal\_dimension\_se       0
+        radius\_worst               0
+        texture\_worst              0
+        perimeter\_worst            0
+        area\_worst                 0
+        smoothness\_worst           0
+        compactness\_worst          0
+        concavity\_worst            0
+        concave points\_worst       0
+        symmetry\_worst             0
+        fractal\_dimension\_worst    0
+        dtype: int64
+\end{Verbatim}
+            
+    \hypertarget{preparaciuxf3n-de-datos}{%
+\section{Preparación de datos}\label{preparaciuxf3n-de-datos}}
+
+Cambiar el orden de filas al azar.
+
+Quitar la columna `id'
+
+Primero calcular el valor standardizado para cada característica.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{R} \PY{o}{=} \PY{n}{T}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{n}{frac}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{R}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{Y} \PY{o}{=} \PY{n}{R}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{X} \PY{o}{=} \PY{n}{R}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{diagnosis}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{18}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{)}\PY{p}{)}
+        \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{X}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_9_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{quitar-caruxe1cteristicas-con-una-correlaciuxf3n-alta}{%
+\subsection{Quitar carácteristicas con una correlación
+alta}\label{quitar-caruxe1cteristicas-con-una-correlaciuxf3n-alta}}
+
+Quitar carácteristicas con una correlación alta ha creato resultados
+peores, asi he decido \textless{}\textgreater{} hacerlo.
+
+El código aqui esta para documentar el intento
+
+\texttt{highly\_correlated\ =\ {[}\textquotesingle{}id\textquotesingle{},\ \textquotesingle{}radius\_mean\textquotesingle{},\ \textquotesingle{}perimeter\_mean\textquotesingle{},\ \textquotesingle{}radius\_worst\textquotesingle{},\ \textquotesingle{}texture\_worst\textquotesingle{},\ \textquotesingle{}area\_worst\textquotesingle{},\ \textquotesingle{}perimeter\_worst\textquotesingle{},\ \textquotesingle{}area\_se\textquotesingle{},\ \textquotesingle{}radius\_se\textquotesingle{},\ \textquotesingle{}compactness\_worst\textquotesingle{},\ \textquotesingle{}concavity\_worst\textquotesingle{},\ \textquotesingle{}concave\ points\_worst\textquotesingle{},\ \textquotesingle{}smoothness\_worst\textquotesingle{},\ \textquotesingle{}fractal\_dimension\_se\textquotesingle{},\ \textquotesingle{}concavity\_se\textquotesingle{},\ \textquotesingle{}concave\ points\_se\textquotesingle{},\ \textquotesingle{}concavity\_mean\textquotesingle{},\ \textquotesingle{}concave\ points\_mean\textquotesingle{}{]}\ X.drop(highly\_correlated,\ axis=1,\ inplace=True)\ plt.figure(figsize=(18,13))\ sns.heatmap(X.corr(),\ annot=True)\ plt.show()}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{nX} \PY{o}{=} \PY{p}{(}\PY{n}{X} \PY{o}{\PYZhy{}} \PY{n}{X}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{/}\PY{n}{X}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}
+        \PY{n}{nX}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}      radius\_mean  texture\_mean  perimeter\_mean  area\_mean  smoothness\_mean  compactness\_mean  concavity\_mean  concave points\_mean  symmetry\_mean  fractal\_dimension\_mean  radius\_se  texture\_se  perimeter\_se    area\_se  smoothness\_se  compactness\_se  concavity\_se  concave points\_se  symmetry\_se  fractal\_dimension\_se  radius\_worst  texture\_worst  perimeter\_worst  area\_worst  smoothness\_worst  \textbackslash{}
+        40     -0.195029      0.532512       -0.238242  -0.261112        -1.048076         -0.833719       -0.723776            -0.737295      -0.100745               -0.981197  -0.601026   -0.707613     -0.640036  -0.435406      -1.252608       -0.807348     -0.596094          -0.796582    -0.815630             -0.948162     -0.070179       0.743994        -0.141692   -0.162786         -1.005964   
+        212     3.967796     -0.190570        3.972634   5.240230         1.268455          0.894841        2.901420             2.849813      -0.596837               -1.069012   8.899079    0.469768      9.453668  10.667228       2.134549        0.125186      1.059969           0.368518     3.301049              0.257399      2.449869      -1.172620         2.417638    2.842534         -0.795736   
+        287    -0.351099     -1.434456       -0.414792  -0.394952        -1.906288         -1.269598       -0.830400            -0.958928      -1.731282               -0.989696  -0.908621   -1.355670     -0.866066  -0.607968      -0.769347       -0.671656     -0.509299          -0.954759    -0.526507             -0.647717     -0.548119      -1.649333        -0.591063   -0.533203         -1.585841   
+        314    -1.569301     -0.160345       -1.558873  -1.232372         0.784956         -0.868559       -1.113893            -1.260710       1.281746                1.528589  -0.246552    2.828154     -0.318549  -0.495199       4.565842       -0.639269     -1.056571          -1.911765     4.949899              1.143241     -1.513930      -0.526698        -1.506172   -1.124924          0.102109   
+        459    -1.240701      2.071676       -1.246515  -1.034312        -1.174640         -1.099753       -0.920591            -0.991916      -0.695326               -0.464227  -0.818830    0.852258     -0.802758  -0.638743      -0.150866       -0.713536     -0.576217          -0.922508    -0.580944             -0.577046     -1.158475       1.829207        -1.167507   -0.932074         -0.935888   
+        
+             compactness\_worst  concavity\_worst  concave points\_worst  symmetry\_worst  fractal\_dimension\_worst  
+        40           -0.317568        -0.305278             -0.051820        0.150716                -0.691303  
+        212          -0.652519         0.229655              0.682979       -2.024902                -1.588804  
+        287          -0.887048        -0.736197             -0.927188       -0.956489                -0.819201  
+        314          -1.122404        -1.304683             -1.743529        0.389937                -0.154243  
+        459          -0.911200        -0.960044             -1.003254       -0.937093                -0.655315  
+\end{Verbatim}
+            
+    \hypertarget{creat-un-modelo}{%
+\section{Creat un modelo}\label{creat-un-modelo}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{n}{RANDOM\PYZus{}STATE} \PY{o}{=} \PY{l+m+mi}{42}\PY{o}{*}\PY{l+m+mi}{42}\PY{o}{*}\PY{l+m+mi}{42}
+        
+        \PY{c+c1}{\PYZsh{} Generate a \PYZhy{}1, 1 version of Y}
+        \PY{n}{y} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Calculate the ratio of B to M samples (aka contamination)}
+        \PY{n}{c} \PY{o}{=} \PY{n}{Y}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+        \PY{n}{ratio} \PY{o}{=} \PY{n}{c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{/}\PY{p}{(}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{+}\PY{n}{c}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{classification\PYZus{}report}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{tuned\PYZus{}parameters} \PY{o}{=} \PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{n\PYZus{}estimators}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{300}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{]}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}samples}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{,}
+                              \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}features}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{,} \PY{l+m+mf}{0.8}\PY{p}{,} \PY{l+m+mf}{1.0}\PY{p}{]}\PY{p}{\PYZcb{}}\PY{p}{]}
+         \PY{n}{clf} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{IsolationForest}\PY{p}{(}\PY{n}{behaviour}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{new}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{RANDOM\PYZus{}STATE}\PY{p}{,} \PY{n}{contamination}\PY{o}{=}\PY{n}{ratio}\PY{p}{)}\PY{p}{,}
+                            \PY{n}{tuned\PYZus{}parameters}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{clf}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{nX}\PY{p}{,} \PY{n}{y}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/Users/manuel.pasieka/anaconda3/envs/py3/lib/python3.6/site-packages/sklearn/model\_selection/\_search.py:841: DeprecationWarning: The default of the `iid` parameter will change from True to False in version 0.22 and will be removed in 0.24. This will change numeric results when test-set sizes are unequal.
+  DeprecationWarning)
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:} GridSearchCV(cv=5, error\_score='raise-deprecating',
+                estimator=IsolationForest(behaviour='new', bootstrap=False,
+                 contamination=0.37258347978910367, max\_features=1.0,
+                 max\_samples='auto', n\_estimators=100, n\_jobs=None,
+                 random\_state=74088, verbose=0),
+                fit\_params=None, iid='warn', n\_jobs=-1,
+                param\_grid=[\{'n\_estimators': [10, 100, 200, 300, 400, 500], 'max\_samples': ['auto', 0.5, 0.8, 1.0], 'max\_features': [0.1, 0.5, 0.8, 1.0]\}],
+                pre\_dispatch='2*n\_jobs', refit=True, return\_train\_score='warn',
+                scoring='f1', verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{clf}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:} IsolationForest(behaviour='new', bootstrap=False,
+                 contamination=0.37258347978910367, max\_features=0.1,
+                 max\_samples=1.0, n\_estimators=100, n\_jobs=None, random\_state=74088,
+                 verbose=0)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{best} \PY{o}{=} \PY{n}{clf}\PY{o}{.}\PY{n}{best\PYZus{}estimator\PYZus{}}
+         \PY{n}{p} \PY{o}{=} \PY{n}{best}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{nX}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+              precision    recall  f1-score   support
+
+          -1       0.68      0.68      0.68       212
+           1       0.81      0.81      0.81       357
+
+   micro avg       0.76      0.76      0.76       569
+   macro avg       0.74      0.74      0.74       569
+weighted avg       0.76      0.76      0.76       569
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Confusion matrix}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{confusion\PYZus{}matrix}
+         \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{confusion\PYZus{}matrix}\PY{p}{(}\PY{n}{y}\PY{p}{,} \PY{n}{p}\PY{p}{)}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                     \PY{n}{xticklabels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{yticklabels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

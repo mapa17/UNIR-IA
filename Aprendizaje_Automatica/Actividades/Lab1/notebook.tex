@@ -1,0 +1,976 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Colab\_Lab1\_nuevo}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{svm-and-nn}{%
+\section{SVM and NN}\label{svm-and-nn}}
+
+\hypertarget{eloy-alfageme-inuxe9s-heras-jorge-garcuxeda-manuel-pasieka}{%
+\subsection{Eloy Alfageme, Inés Heras, Jorge García, Manuel
+Pasieka}\label{eloy-alfageme-inuxe9s-heras-jorge-garcuxeda-manuel-pasieka}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{math}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{naive\PYZus{}bayes} \PY{k}{import} \PY{n}{GaussianNB}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{LabelEncoder}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{metrics} \PY{k}{import} \PY{n}{accuracy\PYZus{}score}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{,} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{,} \PY{n}{mean\PYZus{}squared\PYZus{}log\PYZus{}error}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{svm}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+        \PY{k+kn}{import} \PY{n+nn}{io}
+        \PY{k+kn}{import} \PY{n+nn}{requests}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}network} \PY{k}{import} \PY{n}{MLPRegressor}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{linear\PYZus{}model}
+        \PY{k+kn}{from}  \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot} 
+\end{Verbatim}
+
+
+    \hypertarget{data-preparation}{%
+\subsection{Data preparation}\label{data-preparation}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{}Read Data from source}
+        \PY{n}{url}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{http://archive.ics.uci.edu/ml/machine\PYZhy{}learning\PYZhy{}databases/auto\PYZhy{}mpg/auto\PYZhy{}mpg.data}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{s}\PY{o}{=}\PY{n}{requests}\PY{o}{.}\PY{n}{get}\PY{p}{(}\PY{n}{url}\PY{p}{)}\PY{o}{.}\PY{n}{content}
+        
+        \PY{c+c1}{\PYZsh{}Define target y features variables}
+        \PY{n}{target} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mpg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{features} \PY{o}{=} \PY{p}{[} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cylinders}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{displacement}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{horsepower}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weight}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{acceleration}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{model year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{origin}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{car name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{input\PYZus{}columns} \PY{o}{=} \PY{n}{target} \PY{o}{+} \PY{n}{features}
+        
+        \PY{c+c1}{\PYZsh{}Load the data as a pandas dataframe}
+        \PY{n}{data} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{io}\PY{o}{.}\PY{n}{StringIO}\PY{p}{(}\PY{n}{s}\PY{o}{.}\PY{n}{decode}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{utf\PYZhy{}8}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{,}\PY{n}{delim\PYZus{}whitespace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,}\PY{n}{names}\PY{o}{=}\PY{n}{input\PYZus{}columns}\PY{p}{)}
+        \PY{n}{data}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}     mpg  cylinders  displacement horsepower  weight  acceleration  model year  \textbackslash{}
+        0  18.0          8         307.0      130.0  3504.0          12.0          70   
+        1  15.0          8         350.0      165.0  3693.0          11.5          70   
+        2  18.0          8         318.0      150.0  3436.0          11.0          70   
+        3  16.0          8         304.0      150.0  3433.0          12.0          70   
+        4  17.0          8         302.0      140.0  3449.0          10.5          70   
+        
+           origin                   car name  
+        0       1  chevrolet chevelle malibu  
+        1       1          buick skylark 320  
+        2       1         plymouth satellite  
+        3       1              amc rebel sst  
+        4       1                ford torino  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Number of features }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{data.shape[1]\PYZhy{}1\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Number of Data Points }\PY{l+s+si}{\PYZob{}data.shape[0]\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{missing\PYZus{}data\PYZus{}points} \PY{o}{=}\PY{p}{(}\PY{n}{data} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{o}{.}\PY{n}{astype}\PY{p}{(}\PY{n+nb}{int}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{The number of missing data points per feature}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZob{}missing\PYZus{}data\PYZus{}points\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Number of features 8
+Number of Data Points 398
+
+The number of missing data points per feature
+
+mpg             0
+cylinders       0
+displacement    0
+horsepower      6
+weight          0
+acceleration    0
+model year      0
+origin          0
+car name        0
+dtype: int64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{}Missing data and string treatment}
+        \PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{car name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{LabelEncoder}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{car name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{o}{.}\PY{n}{replace}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{?}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{nan}\PY{p}{)}\PY{o}{.}\PY{n}{ffill}\PY{p}{(}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{}Split the data in training, validation and tet}
+        \PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{rest\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{rest\PYZus{}y} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{data}\PY{p}{[}\PY{n}{features}\PY{p}{]}\PY{p}{,} \PY{n}{data}\PY{p}{[}\PY{n}{target}\PY{p}{]}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.25}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{validation\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{validation\PYZus{}y} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{rest\PYZus{}x}\PY{p}{,} \PY{n}{rest\PYZus{}y}\PY{p}{,}\PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.5}\PY{p}{,}\PY{n}{random\PYZus{}state}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Convert targets to 1d array in order to remove warnings}
+        \PY{n}{train\PYZus{}y} \PY{o}{=} \PY{n}{train\PYZus{}y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+        \PY{n}{test\PYZus{}y} \PY{o}{=} \PY{n}{test\PYZus{}y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+        \PY{n}{validation\PYZus{}y} \PY{o}{=} \PY{n}{validation\PYZus{}y}\PY{o}{.}\PY{n}{values}\PY{o}{.}\PY{n}{ravel}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Using }\PY{l+s+si}{\PYZob{}train\PYZus{}x.shape[0]\PYZcb{}}\PY{l+s+s1}{ Data points for training, }\PY{l+s+si}{\PYZob{}test\PYZus{}x.shape[0]\PYZcb{}}\PY{l+s+s1}{ for testing and }\PY{l+s+si}{\PYZob{}validation\PYZus{}x.shape[0]\PYZcb{}}\PY{l+s+s1}{ for validation ...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Using 298 Data points for training, 50 for testing and 50 for validation {\ldots}
+
+    \end{Verbatim}
+
+    \hypertarget{support-vector-machine}{%
+\subsection{Support vector machine}\label{support-vector-machine}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{}To find the most optimal configuration manually,}
+        \PY{c+c1}{\PYZsh{} We defined two possible types of kernel. A radial and a linear kernel}
+        \PY{n}{kernels}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rbf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}Posible values of C, that determine the size of the softmargin}
+        \PY{n}{cs}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{]}
+        \PY{c+c1}{\PYZsh{}Posible gamma values, which determine the radius of influence of each point}
+        \PY{n}{gammas}\PY{o}{=}\PY{p}{[}\PY{l+m+mf}{0.001}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+        
+        \PY{c+c1}{\PYZsh{}Initialize the variables that will save the best values ​​found}
+        \PY{n}{maxscore}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{100}
+        \PY{n}{maxkernel}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsq{}}
+        \PY{n}{maxcs}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{maxgamma}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{mse} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mse} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{mae} \PY{o}{=} \PY{l+m+mi}{0}
+        \PY{n}{prediction}\PY{o}{=}\PY{l+m+mi}{0}
+        \PY{n}{best\PYZus{}SVM} \PY{o}{=} \PY{k+kc}{None}
+        
+        \PY{c+c1}{\PYZsh{}Going through all the possible configurations of kernel, C and gamma}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{kernels}\PY{p}{:}
+            \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{cs}\PY{p}{:}
+                \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n}{gammas}\PY{p}{:}
+                    \PY{c+c1}{\PYZsh{}New model}
+                    \PY{n}{model}\PY{o}{=}\PY{n}{svm}\PY{o}{.}\PY{n}{SVR}\PY{p}{(}\PY{n}{kernel}\PY{o}{=}\PY{n}{i}\PY{p}{,}\PY{n}{C}\PY{o}{=}\PY{n}{j}\PY{p}{,} \PY{n}{gamma}\PY{o}{=}\PY{n}{k}\PY{p}{)}
+                    \PY{c+c1}{\PYZsh{}Fit the model}
+                    \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{)} 
+                    \PY{c+c1}{\PYZsh{}We obtain the values of prediction, score, MSE and MAE}
+                    \PY{n}{pred}   \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+                    \PY{n}{scor}   \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}
+                    \PY{n}{mse\PYZus{}}   \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{pred}\PY{p}{)}
+                    \PY{n}{mae\PYZus{}}   \PY{o}{=} \PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{pred}\PY{p}{)}
+                    
+                    \PY{c+c1}{\PYZsh{}If the score is greater than the maximum score obtained,}
+                    \PY{c+c1}{\PYZsh{} we save this model as the best, storing all its values}
+                    \PY{c+c1}{\PYZsh{}of configuration and metrics.}
+                    \PY{k}{if}\PY{p}{(}\PY{n}{scor}\PY{o}{\PYZgt{}}\PY{n}{maxscore}\PY{p}{)}\PY{p}{:}
+                        \PY{n}{maxscore}\PY{o}{=}\PY{n}{scor}
+                        \PY{n}{maxkernel}\PY{o}{=}\PY{n}{i}
+                        \PY{n}{maxcs}\PY{o}{=}\PY{n}{j}
+                        \PY{n}{maxgamma}\PY{o}{=}\PY{n}{k}
+                        \PY{n}{mse}   \PY{o}{=} \PY{n}{mse\PYZus{}}
+                        \PY{n}{mae}   \PY{o}{=} \PY{n}{mae\PYZus{}}
+                        \PY{n}{prediction} \PY{o}{=} \PY{n}{pred}
+                        \PY{n}{best\PYZus{}SVM} \PY{o}{=} \PY{n}{model}
+                        
+                
+                        
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Score }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}
+              \PY{n+nb}{str}\PY{p}{(}\PY{n}{maxscore}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ using params: C: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{maxcs}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, Kernel: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n}{maxkernel}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{, Gamma: }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{maxgamma}\PY{p}{)}\PY{p}{)} 
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean squared error (MSE): }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{mse}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Absolute Error (MAE): }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{mae}\PY{p}{)}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Root mean squared error (RMSE): }\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{mse}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                    
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Score 0.8345560117732478 using params: C: 1, Kernel: linear, Gamma: 0.001
+Mean squared error (MSE): 10.638848530107234
+Mean Absolute Error (MAE): 2.5145364278111817
+Root mean squared error (RMSE): 3.261724778412065
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+        \PY{n}{pyplot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,}\PY{n}{prediction}\PY{p}{)}
+        \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}
+        \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Truth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pyplot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_8_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{neural-network}{%
+\subsection{Neural network}\label{neural-network}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} Prepare the data, standardizing features}
+        \PY{n}{scaler} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}  
+        \PY{n}{scaler}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}  
+        \PY{n}{scaled\PYZus{}train\PYZus{}x} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{train\PYZus{}x}\PY{p}{)}  
+        \PY{n}{scaled\PYZus{}test\PYZus{}x} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{test\PYZus{}x}\PY{p}{)}
+        \PY{n}{scaled\PYZus{}validation\PYZus{}x} \PY{o}{=} \PY{n}{scaler}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{validation\PYZus{}x}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/preprocessing/data.py:625: DataConversionWarning: Data with input dtype int64, float64, object were all converted to float64 by StandardScaler.
+  return self.partial\_fit(X, y)
+/usr/local/lib/python3.6/dist-packages/ipykernel\_launcher.py:3: DataConversionWarning: Data with input dtype int64, float64, object were all converted to float64 by StandardScaler.
+  This is separate from the ipykernel package so we can avoid doing imports until
+/usr/local/lib/python3.6/dist-packages/ipykernel\_launcher.py:4: DataConversionWarning: Data with input dtype int64, float64, object were all converted to float64 by StandardScaler.
+  after removing the cwd from sys.path.
+/usr/local/lib/python3.6/dist-packages/ipykernel\_launcher.py:5: DataConversionWarning: Data with input dtype int64, float64, object were all converted to float64 by StandardScaler.
+  """
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}0}]:} \PY{c+c1}{\PYZsh{} Define some helper functions}
+        \PY{k}{def} \PY{n+nf}{train\PYZus{}NN}\PY{p}{(}\PY{n}{training\PYZus{}features}\PY{p}{,} \PY{n}{training\PYZus{}targets}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{model\PYZus{}kwargs}\PY{p}{,} \PY{n}{seed}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Build a model of given type and arguments}
+            \PY{n}{modelNN} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{o}{*}\PY{o}{*}\PY{n}{model\PYZus{}kwargs}\PY{p}{,} \PY{n}{random\PYZus{}state}\PY{o}{=}\PY{n}{seed}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Train it}
+            \PY{n}{modelNN}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{training\PYZus{}features}\PY{p}{,} \PY{n}{training\PYZus{}targets}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{modelNN}
+        
+        \PY{k}{def} \PY{n+nf}{NN\PYZus{}testbed}\PY{p}{(}\PY{n}{training\PYZus{}features}\PY{p}{,} \PY{n}{training\PYZus{}targets}\PY{p}{,} \PY{n}{test\PYZus{}features}\PY{p}{,} \PY{n}{test\PYZus{}targets}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{model\PYZus{}kwargs}\PY{p}{,} \PY{n}{seed}\PY{o}{=}\PY{l+m+mi}{42}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Train a NN on given training data using the given model arguments}
+            \PY{c+c1}{\PYZsh{} Return its accuracy and mse on the test data}
+            
+            \PY{n}{modelNN} \PY{o}{=} \PY{n}{train\PYZus{}NN}\PY{p}{(}\PY{n}{training\PYZus{}features}\PY{p}{,} \PY{n}{training\PYZus{}targets}\PY{p}{,} \PY{n}{model}\PY{p}{,} \PY{n}{model\PYZus{}kwargs}\PY{p}{,} \PY{n}{seed}\PY{p}{)}
+            
+            \PY{c+c1}{\PYZsh{} Calculate its score on the test data}
+            \PY{n}{pred} \PY{o}{=} \PY{n}{modelNN}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{test\PYZus{}features}\PY{p}{)}
+            
+            \PY{n}{score} \PY{o}{=} \PY{n}{modelNN}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{test\PYZus{}features}\PY{p}{,} \PY{n}{test\PYZus{}targets}\PY{p}{)}
+            \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{test\PYZus{}targets}\PY{p}{,} \PY{n}{pred}\PY{p}{)}
+            
+            \PY{k}{return} \PY{n}{score}\PY{p}{,} \PY{n}{mse}
+        
+        \PY{k}{def} \PY{n+nf}{generate\PYZus{}all\PYZus{}configurations}\PY{p}{(}\PY{n}{config}\PY{p}{)}\PY{p}{:}
+            \PY{c+c1}{\PYZsh{} Use given dictionary to generate all possible permutations of configs}
+            \PY{n}{complete\PYZus{}configs} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+            \PY{n}{template} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        
+            \PY{c+c1}{\PYZsh{} Start out with one template config}
+            \PY{n}{complete\PYZus{}configs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}\PY{p}{)}
+        
+            \PY{c+c1}{\PYZsh{} Add a new config for each possible parameter and value tuple}
+            \PY{k}{for} \PY{n}{param}\PY{p}{,} \PY{n}{values} \PY{o+ow}{in} \PY{n}{config}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                \PY{n}{current\PYZus{}configs} \PY{o}{=} \PY{n}{complete\PYZus{}configs}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                \PY{n}{complete\PYZus{}configs} \PY{o}{=} \PY{p}{[}\PY{p}{]} \PY{c+c1}{\PYZsh{} Make sure to discard the old ones, not containing a latest parameter}
+        
+                \PY{k}{for} \PY{n}{new\PYZus{}config} \PY{o+ow}{in} \PY{n}{current\PYZus{}configs}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                        \PY{k}{for} \PY{n}{value} \PY{o+ow}{in} \PY{n}{values}\PY{p}{:}
+                            \PY{n}{new\PYZus{}config}\PY{o}{.}\PY{n}{update}\PY{p}{(}\PY{p}{\PYZob{}}\PY{n}{param}\PY{p}{:} \PY{n}{value}\PY{p}{\PYZcb{}}\PY{p}{)}
+                            \PY{n}{complete\PYZus{}configs}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}config}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+            \PY{k}{return} \PY{n}{complete\PYZus{}configs}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{c+c1}{\PYZsh{} Generate a set of hyper paremeters to test}
+        \PY{n}{configurations} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hidden\PYZus{}layer\PYZus{}sizes}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{p}{)}\PY{p}{]}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{activation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{relu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{identity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{alpha}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.0001}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.10}\PY{p}{]}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{batch\PYZus{}size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{auto}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{learning\PYZus{}rate\PYZus{}init}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mf}{0.1}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{,} \PY{l+m+mf}{0.001}\PY{p}{]}\PY{p}{,}
+                          \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{max\PYZus{}iter}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{1000}\PY{p}{]}\PY{p}{,}
+                         \PY{p}{\PYZcb{}}
+        
+        \PY{n}{test\PYZus{}configs} \PY{o}{=} \PY{n}{generate\PYZus{}all\PYZus{}configurations}\PY{p}{(}\PY{n}{configurations}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Generated }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{len(test\PYZus{}configs)\PYZcb{} different configurations to test ...}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Generated 90 different configurations to test {\ldots}
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Find the parameter setting that produces the highest r2 score}
+         
+         \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1000}
+         \PY{n}{best\PYZus{}mse} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{best\PYZus{}config} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         
+         \PY{k}{for} \PY{n}{i}\PY{p}{,} \PY{n}{config} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{test\PYZus{}configs}\PY{p}{)}\PY{p}{:}
+             \PY{n}{score}\PY{p}{,} \PY{n}{mse} \PY{o}{=} \PY{n}{NN\PYZus{}testbed}\PY{p}{(}\PY{n}{scaled\PYZus{}train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{scaled\PYZus{}test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{MLPRegressor}\PY{p}{,} \PY{n}{config}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{config }\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s1}{ gives a score of }\PY{l+s+si}{\PYZob{}score\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{k}{if} \PY{n}{score} \PY{o}{\PYZgt{}} \PY{n}{best\PYZus{}score}\PY{p}{:}
+                 \PY{n}{best\PYZus{}score} \PY{o}{=} \PY{n}{score}
+                 \PY{n}{best\PYZus{}mse} \PY{o}{=} \PY{n}{mse}
+                 \PY{n}{best\PYZus{}config} \PY{o}{=} \PY{n}{config}
+             
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{Found the best config to be:}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+si}{\PYZob{}best\PYZus{}config\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{ with a score of }\PY{l+s+si}{\PYZob{}best\PYZus{}score\PYZcb{}}\PY{l+s+s1}{, and mse }\PY{l+s+si}{\PYZob{}best\PYZus{}mse\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 0 gives a score of 0.8137527562300947
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 1 gives a score of 0.8123243681693234
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 2 gives a score of 0.5872333739258879
+config 3 gives a score of 0.8262249408789459
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 4 gives a score of 0.8123324165452341
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 5 gives a score of 0.5872427298946787
+config 6 gives a score of 0.8471750967820075
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 7 gives a score of 0.813226232161675
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 8 gives a score of 0.5871981702942568
+config 9 gives a score of 0.8587261700929848
+config 10 gives a score of 0.8527589283897955
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 11 gives a score of 0.851765893683966
+config 12 gives a score of 0.8587220276526873
+config 13 gives a score of 0.8527595090726481
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 14 gives a score of 0.85176609717906
+config 15 gives a score of 0.8586829542968911
+config 16 gives a score of 0.8527647492479538
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 17 gives a score of 0.8517679146459164
+config 18 gives a score of 0.8529688327336493
+config 19 gives a score of 0.8310750423048794
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 20 gives a score of 0.8544144805268252
+config 21 gives a score of 0.8533615925856457
+config 22 gives a score of 0.8261238330443197
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 23 gives a score of 0.8544124204060934
+config 24 gives a score of 0.8398791035964077
+config 25 gives a score of 0.838856968342808
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 26 gives a score of 0.8544339245905472
+config 27 gives a score of 0.8650988275413813
+config 28 gives a score of 0.8764621420187609
+config 29 gives a score of 0.8562384062846476
+config 30 gives a score of 0.8651023077041236
+config 31 gives a score of 0.8764623830673844
+config 32 gives a score of 0.8562384855375903
+config 33 gives a score of 0.8651338600155759
+config 34 gives a score of 0.8764645601031199
+config 35 gives a score of 0.8562391724993944
+config 36 gives a score of 0.8244577256604105
+config 37 gives a score of 0.833885718410091
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 38 gives a score of 0.8555959080492923
+config 39 gives a score of 0.8297128216246992
+config 40 gives a score of 0.8155780329515655
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 41 gives a score of 0.8555510615980088
+config 42 gives a score of 0.8393450872160295
+config 43 gives a score of 0.8313648063506861
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 44 gives a score of 0.8542728050661058
+config 45 gives a score of 0.8613309905639641
+config 46 gives a score of 0.8492636910150275
+config 47 gives a score of 0.8584112340668033
+config 48 gives a score of 0.8613419164403375
+config 49 gives a score of 0.8492631950596605
+config 50 gives a score of 0.8584102134017519
+config 51 gives a score of 0.861436204421642
+config 52 gives a score of 0.8492586805597858
+config 53 gives a score of 0.8584009214937937
+config 54 gives a score of 0.8567064495279737
+config 55 gives a score of 0.8481294749316877
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 56 gives a score of 0.8716392336912739
+config 57 gives a score of 0.8573706639060704
+config 58 gives a score of 0.8280170644029933
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 59 gives a score of 0.8716480664171049
+config 60 gives a score of 0.8566605090044843
+config 61 gives a score of 0.8307633671988872
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 62 gives a score of 0.8713668065102603
+config 63 gives a score of 0.8443896813390092
+config 64 gives a score of 0.8508545803337851
+config 65 gives a score of 0.8576318481045039
+config 66 gives a score of 0.8443854530643516
+config 67 gives a score of 0.8508550269581724
+config 68 gives a score of 0.8576311017115983
+config 69 gives a score of 0.8443458028044836
+config 70 gives a score of 0.8508591097554558
+config 71 gives a score of 0.8576243139361626
+config 72 gives a score of 0.738116346726654
+config 73 gives a score of 0.8217295327473524
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 74 gives a score of 0.855657989501762
+config 75 gives a score of 0.8587859721905029
+config 76 gives a score of 0.8158233759013301
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 77 gives a score of 0.8525975684223893
+config 78 gives a score of 0.8520319283319893
+config 79 gives a score of 0.8304504907410343
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/usr/local/lib/python3.6/dist-packages/sklearn/neural\_network/multilayer\_perceptron.py:562: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn't converged yet.
+  \% self.max\_iter, ConvergenceWarning)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+config 80 gives a score of 0.8679544132558834
+config 81 gives a score of 0.8518842152040479
+config 82 gives a score of 0.8593650147323093
+config 83 gives a score of 0.8671147612576592
+config 84 gives a score of 0.8518668364063774
+config 85 gives a score of 0.8593633923990038
+config 86 gives a score of 0.8671141028595062
+config 87 gives a score of 0.8564457703738773
+config 88 gives a score of 0.8593485908627606
+config 89 gives a score of 0.8671081070081244
+
+
+Found the best config to be:
+\{'hidden\_layer\_sizes': (50,), 'activation': 'identity', 'alpha': 0.1, 'batch\_size': 'auto', 'learning\_rate\_init': 0.01, 'max\_iter': 1000\}
+ with a score of 0.8764645601031199, and mse 7.943926202756725
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{best\PYZus{}NN} \PY{o}{=} \PY{n}{train\PYZus{}NN}\PY{p}{(}\PY{n}{scaled\PYZus{}train\PYZus{}x}\PY{p}{,} \PY{n}{train\PYZus{}y}\PY{p}{,} \PY{n}{MLPRegressor}\PY{p}{,} \PY{n}{best\PYZus{}config}\PY{p}{,} \PY{l+m+mi}{42}\PY{p}{)}
+         
+         \PY{n}{prediction} \PY{o}{=} \PY{n}{best\PYZus{}NN}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{scaled\PYZus{}test\PYZus{}x}\PY{p}{)}
+         \PY{n}{score} \PY{o}{=} \PY{n}{best\PYZus{}NN}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{scaled\PYZus{}test\PYZus{}x}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}
+         \PY{n}{mse} \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Best NN has a score of }\PY{l+s+si}{\PYZob{}score\PYZcb{}}\PY{l+s+s1}{ with a mse }\PY{l+s+si}{\PYZob{}mse\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{test\PYZus{}y}\PY{p}{,} \PY{n}{test\PYZus{}y}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Truth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Best NN has a score of 0.8764645601031199 with a mse 7.943926202756725
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{compare-the-models}{%
+\subsection{Compare the models}\label{compare-the-models}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{c+c1}{\PYZsh{} Compare the two models using the validation data}
+         \PY{n}{svm\PYZus{}prediction}   \PY{o}{=} \PY{n}{best\PYZus{}SVM}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{validation\PYZus{}x}\PY{p}{)} 
+         \PY{n}{svm\PYZus{}score}   \PY{o}{=} \PY{n}{best\PYZus{}SVM}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{validation\PYZus{}x}\PY{p}{,} \PY{n}{validation\PYZus{}y}\PY{p}{)}
+         \PY{n}{svm\PYZus{}mse}   \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{validation\PYZus{}y}\PY{p}{,} \PY{n}{svm\PYZus{}prediction}\PY{p}{)}
+         
+         \PY{n}{NN\PYZus{}prediction}   \PY{o}{=} \PY{n}{best\PYZus{}NN}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{scaled\PYZus{}validation\PYZus{}x}\PY{p}{)} 
+         \PY{n}{NN\PYZus{}score}   \PY{o}{=} \PY{n}{best\PYZus{}NN}\PY{o}{.}\PY{n}{score}\PY{p}{(}\PY{n}{scaled\PYZus{}validation\PYZus{}x}\PY{p}{,} \PY{n}{validation\PYZus{}y}\PY{p}{)}
+         \PY{n}{NN\PYZus{}mse}   \PY{o}{=} \PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{validation\PYZus{}y}\PY{p}{,} \PY{n}{NN\PYZus{}prediction}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SVM }\PY{l+s+si}{\PYZob{}svm\PYZus{}score\PYZcb{}}\PY{l+s+s1}{ with a mse }\PY{l+s+si}{\PYZob{}svm\PYZus{}mse\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NN }\PY{l+s+si}{\PYZob{}NN\PYZus{}score\PYZcb{}}\PY{l+s+s1}{ with a mse }\PY{l+s+si}{\PYZob{}NN\PYZus{}mse\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{validation\PYZus{}y}\PY{p}{,} \PY{n}{NN\PYZus{}prediction}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{validation\PYZus{}y}\PY{p}{,} \PY{n}{svm\PYZus{}prediction}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{SVM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{validation\PYZus{}y}\PY{p}{,} \PY{n}{validation\PYZus{}y}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Truth}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prediction}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+         \PY{n}{pyplot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+SVM 0.8787425432847087 with a mse 7.4140223645710215
+NN 0.8750287565816383 with a mse 7.641093741620101
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
